@@ -1,0 +1,66 @@
+﻿@model List<MVCDemo.Models.Person>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    List<SelectListItem> listItems = new List<SelectListItem>();
+    listItems.Add(new SelectListItem
+    {
+        Text = "Angles",
+        Value = "1"
+    });
+    listItems.Add(new SelectListItem
+    {
+        Text = "Saxons",
+        Value = "2"
+    });
+    listItems.Add(new SelectListItem
+    {
+        Text = "Jutes",
+        Value = "3"
+    });
+    listItems.Add(new SelectListItem
+    {
+        Text = "Asians",
+        Value = "4"
+    });
+}
+
+@Html.DropDownList("Direction", new SelectList(listItems, "Value", "Text"), new { onchange = "redirect(this.value)" })
+
+
+<table class="table table-bordered table-responsive table-hover">
+    <tr>
+        <th>Name </th>
+        <th>Age </th>
+        <th>Height </th>
+    </tr> 
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Age)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Height)
+            </td>
+        </tr>
+    }
+</table>
+
+@section Scripts
+{
+    <script>
+      $(function(){
+         //alert("All good");
+      });
+      function redirect(dropDownValue) {
+        window.location.href = '/Person/Index/' + dropDownValue;
+      }
+    </script>
+}
+
